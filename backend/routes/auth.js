@@ -4,12 +4,14 @@ const User = require('../models/User');  //import UserSchema from our models rep
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser');
 
 const JWT_SECRET = 'Shuvaisavery$goodcoder';   // my secret sing string 🔐
 
 /**** Route 1 : Create a User using:
  *  POST- "/api/auth/createuser" , 
  * No login require🛴🔛 ********/ 
+
 router.post('/createuser', [   //condition validation and errors msg
     body('name', "Name must contain atleast 3 charactors").isLength({min: 3}),
     body('email', "Enter a valid email id").isEmail(),
@@ -58,6 +60,7 @@ router.post('/createuser', [   //condition validation and errors msg
 /**** Route 2 : compaire a user email and password : 
 * POST- "/api/auth/login" , 
 * No login require🛴🔛    ******/
+
 router.post('/login', [   //condition validation and errors msg
     body('email').isEmail(),
     body('password',"Enter your password").isLength(1)
@@ -89,7 +92,7 @@ router.post('/login', [   //condition validation and errors msg
 
         const authToken = jwt.sign(data, JWT_SECRET);
 
-        res.json({authToken:authToken, data:data});
+        res.json({authToken});
     } catch (error) {
         console.error(error.massage);
         res.status(500).send("Internal server errors!!");
@@ -97,5 +100,19 @@ router.post('/login', [   //condition validation and errors msg
 
 })
 
+/**** Route 3 : Fetch a User using authToken and add user id : 
+* POST- "/api/auth/getuser" , 
+* login require🛴🔛    ******/
+router.post('/getuser', fetchuser, async (req, res)=>{  //fatchuser is middleware (nothing but a function)🎭
+    try {
+        const userid = req.user.id; //getting from fetchuser middleware🛒
+        const user = await User.findById(userid).select('-password');  
+        res.send(user);
+    
+    } catch (error) {
+        console.error(error.massage);
+        res.status(500).send("Internal server errors!!");
+    }
+})
 
 module.exports = router ;
