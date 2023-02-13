@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser');
 
-const JWT_SECRET = 'Shuvaisavery$goodcoder';   // my secret sing string 🔐
+const JWT_SECRET = 'Shuvaisavery$goodcoder';   // my secret sign string 🔐
 
 /**** Route 1 : Create a User using:
  *  POST- "/api/auth/createuser" , 
@@ -23,12 +23,12 @@ router.post('/createuser', [   //condition validation and errors msg
       return res.status(400).json({ errors: errors.array() });  //send errors array🧰🛠
     }
 
-    //Check wheather the user with the email is exists already❗❓ 
     try {
+        //Check wheather the user with the email is exists already❗❓ 
         let user = await User.findOne({email: req.body.email}); //searching in our db🧐🌐
         if (user){
             // Its very very important to write return otherwise our app will crase☢ whenever user post a bad request🔰
-            return res.status(400).json({error:"Sorry a user with this email is already exists"});
+            return res.status(400).json({ error:"Sorry a user with this email is already exists" });
         }
 
         //adding salt🧪 by creating bcrypt.genSalt() and create a hash text🈲 that's store in a variable called 'secPass' which is actually store in my db🌐
@@ -42,13 +42,13 @@ router.post('/createuser', [   //condition validation and errors msg
                 password: secPass  //store hash in our db🌐
           })
         
-        //creating a token🎫 to new register user😇 and give the token with my sing as response📤📬
+        //creating a token🎫 to new register user😇 and give the token with my sign as response📤📬
         const data = {
             id: user.id
         }
         const authToken = jwt.sign(data, JWT_SECRET);
 
-        res.json({authToken});
+        res.status(201).json({authToken});
         
     } catch (err) {
         console.error(err.massage);
@@ -103,6 +103,7 @@ router.post('/login', [   //condition validation and errors msg
 /**** Route 3 : Fetch a User using authToken and add user id : 
 * POST- "/api/auth/getuser" , 
 * login require🛴🔛    ******/
+
 router.post('/getuser', fetchuser, async (req, res)=>{  //fatchuser is middleware (nothing but a function)🎭
     try {
         const userid = req.user.id; //getting from fetchuser middleware🛒
