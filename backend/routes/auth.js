@@ -4,7 +4,7 @@ const User = require('../models/User');  //import UserSchema from our models rep
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const fetchuser = require('../middleware/fetchuser');
+const fetchuser = require('../middleware/fetchuser');   //import middleware fatchuser
 
 const JWT_SECRET = 'Shuvaisavery$goodcoder';   // my secret sign string 🔐
 
@@ -12,7 +12,7 @@ const JWT_SECRET = 'Shuvaisavery$goodcoder';   // my secret sign string 🔐
  *  POST- "/api/auth/createuser" , 
  * No login require🛴🔛 ********/ 
 
-router.post('/createuser', [   //condition validation and errors msg
+router.post('/createuser', [   //condition validation and errors msg using expersss-validator
     body('name', "Name must contain atleast 3 charactors").isLength({min: 3}),
     body('email', "Enter a valid email id").isEmail(),
     body('password', "password must contain atleast 5 charactors").isLength({min: 5})
@@ -31,7 +31,7 @@ router.post('/createuser', [   //condition validation and errors msg
             return res.status(400).json({ error:"Sorry a user with this email is already exists" });
         }
 
-        //adding salt🧪 by creating bcrypt.genSalt() and create a hash text🈲 that's store in a variable called 'secPass' which is actually store in my db🌐
+        //adding salt🧪 by creating bcrypt.genSalt() and create a hash text🈲 that's store in a variable called 'secPass' which is actually store in our db🌐
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(req.body.password, salt);
 
@@ -71,7 +71,7 @@ router.post('/login', [   //condition validation and errors msg
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {email, password} = req.body;  //Destructuring from our resuest body to email, password
+    const {email, password} = req.body;  //Destructuring from our request body to email, password
     try {
         //searching user in db with the help off email🧐🌐
         let user = await User.findOne({email:email});

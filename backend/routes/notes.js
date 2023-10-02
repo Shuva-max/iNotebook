@@ -24,7 +24,7 @@ router.post(
   "/createnotes",
   [
     //condition validation and errors msg
-    body("title", "title can't be white spase!!").isLength({ min: 1 }),
+    body("title", "title can't be white space!!").isLength({ min: 1 }),
     body("description", "description can't be white spase!!").isLength({
       min: 5,
     }),
@@ -40,17 +40,17 @@ router.post(
 
       const { title, description, tag } = req.body;
       const note = new Note({
-        title,
-        description,
-        tag,
-        user: req.user.id,
+        title: title,
+        description: description,
+        tag: tag,
+        user: req.user.id
       });
 
       const savenote = await note.save();
       res.json(savenote);
     } catch (err) {
-      console.error(err.massage);
-      res.status(500).send("Internal server errors2!!");
+      console.error(err);
+      res.status(500).send("Internal server errors2!!" + err);
     }
   }
 );
@@ -73,7 +73,7 @@ router.put('/updatenote/:id', fetchuser, async (req, res) => {
   }
 
   try {
-    //Fnd the node to be updated and update it
+    //Find the node to be updated and update it
     //check if the node own that user
     let note = await Note.findById(req.params.id);
     if (!note) {
