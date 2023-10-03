@@ -33,54 +33,63 @@ const NoteState = (props) =>{
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
               "Content-Type": "application/json",
-              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNlNjgyN2QzZjYzMzhmMDBmYjQ3YTEzIn0sImlhdCI6MTY3NjEyMzg4MX0.pZirPWDdq5Ktvbguo5PbpnFnAaOkiB7yfyQJ_rbzPRE"
+              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3ZGEyMzg5NGJjNjk4MmNmZTE2NSIsImlhdCI6MTY5NjEwMzg0Mn0.7Foj__Q7q3V01IGM5gJU003vBV28GROvvuTtEuESYz8"
             },
             body: JSON.stringify({title:n.title, description:n.description, tag:n.tag}), // body data type must match "Content-Type" header
           });
           // return response.json(); // parses JSON response into native JavaScript objects
           console.log("Adding a new note")
-          const note = {
-            "title": n.title,
-            "description": n.description,
-            "tag": n.tag
-          };
+          const note = await response.json();
+          
           setNotes(notes.concat(note))  
         }
         //Delete a note
-        const deleteNote = (id)=>{
+        const deleteNote = async (id)=>{
           //TODO API call
           console.log("Deleting note" , id)
+          const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+            method: "DELETE", // *GET, POST, PUT, DELETE, etc.
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3ZGEyMzg5NGJjNjk4MmNmZTE2NSIsImlhdCI6MTY5NjEwMzg0Mn0.7Foj__Q7q3V01IGM5gJU003vBV28GROvvuTtEuESYz8"
+            }
+          });
+          const json = await response.json();
+          console.log(json)
           const newNote = notes.filter((note)=>{return note._id !== id});
-
           setNotes(newNote);
         }
         //Edit a note
-        const editNote = async(n)=>{
+        const editNote = async(id, title, description, tag)=>{
           console.log("note is editing..")
-          //logic to implement edit operation
-          let element = {title:"",description:"", tag:""};
-          for (let index = 0; index < notes.length; index++) {
-            element = notes[index];
-            if(element._id === n._id){
-              element.title = n.title;
-              element.description = n.description;
-              element.tag = n.tag;
-            }
-          }
           //API call
           //fetch api call
           // Default options are marked with *
-          const response = await fetch(`${host}/api/notes/updatenote/${element._id}`, {
+          const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
             method: "PUT", // *GET, POST, PUT, DELETE, etc.
             headers: {
               "Content-Type": "application/json",
-              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNlNjgyN2QzZjYzMzhmMDBmYjQ3YTEzIn0sImlhdCI6MTY3NjEyMzg4MX0.pZirPWDdq5Ktvbguo5PbpnFnAaOkiB7yfyQJ_rbzPRE"
+              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3ZGEyMzg5NGJjNjk4MmNmZTE2NSIsImlhdCI6MTY5NjEwMzg0Mn0.7Foj__Q7q3V01IGM5gJU003vBV28GROvvuTtEuESYz8"
             },
-            body: JSON.stringify({title:element.title, description:element.description, tag:element.tag}), // body data type must match "Content-Type" header
+            body: JSON.stringify({title: title, description: description, tag: tag}), // body data type must match "Content-Type" header
           });
           // return response.json(); // parses JSON response into native JavaScript objects
-          const json = response.json();
+          const json = await response.json();
           console.log(json)
+
+          //logic to implement edit operation in clint
+          const eNote = await JSON.parse(JSON.stringify(notes));
+          for (let index = 0; index < eNote.length; index++) {
+            const element = eNote[index];
+            if(element._id === id){
+              eNote[index].title = title;
+              eNote[index].description = description;
+              eNote[index].tag = tag;
+              break;
+            }
+          }
+          console.log(eNote)
+          setNotes(eNote)
         
         }
 

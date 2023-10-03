@@ -1,10 +1,11 @@
 import React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
-export default function Navbar() {
+export default function Navbar(props) {
   const location = useLocation();
 
   return (
+    <>
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <div className="container-fluid">
@@ -31,5 +32,11 @@ export default function Navbar() {
   </div>
 </nav>
     </div>
+    <div className="user div-logout">
+      <h5 id='userName'> <i className="fa-solid fa-user"></i> Hello, {props.userName} </h5>
+      <button className="btn btn-primary btn-logout" >Logout</button>
+    </div>
+
+    </>
   )
 }

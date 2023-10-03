@@ -16,10 +16,11 @@ code {
 
 i{
   cursor: pointer;
+  margin: -5px 5px 2px 10px;
 }
 
-/* for add component description style */
-.desc {
+/* for addNote component description style */
+/* .desc {
   width: 80%;
 }
 #title {
@@ -27,8 +28,30 @@ i{
 }
 .addButton {
   width: 80%;
+} */
+#btn-add {
+  width: 150px;
 }
-.addNotes {
-  /* display: flex; */
-  /* justify-content: center; */
+
+/* userName style in Navber component */
+#userName {
+  margin: 6px 27px;
+  cursor: pointer;
+}
+.div-logout {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-logout {
+  margin: 6px 40px;
+}
+.note-1 {
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+.note-title-01 {
+  border-bottom: 1px solid #000000;
+}
+.note-text{
+  margin: 10px 3px 8px 3px;
 }

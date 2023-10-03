@@ -14,7 +14,7 @@ function App() {
       <NoteState>
         <Router>
           <div className="App">
-            <Navbar />
+            <Navbar userName={'userName'}/>
             {/* <div className="alert">
               <Alert alert={alert}/>
             </div> */}
