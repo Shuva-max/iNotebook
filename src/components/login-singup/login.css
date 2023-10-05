@@ -1,0 +1,88 @@
+.body-b1 {
+    padding: 0px;
+    margin: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.body-b1{
+    background-color: #328f8a;
+    background-image: linear-gradient(45deg,#75ceca,#08ac4b);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+.parent-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid rgb(30, 172, 37); */
+    height: 75vh;
+}
+.login-page{
+    align-content: center;
+    background-color: white;
+    /* border: 1px solid rgb(255, 0, 0); */
+    border-radius: 10px;
+    width: 22%;
+    height: 64%;
+    box-shadow: 9px 11px 8px #666565;
+}
+form{
+    margin: 20px;
+    padding: 10px;
+    /* border: 2px solid rgb(0, 42, 255); */
+}
+.h3-login {
+    margin: 25px 0px 3px 0px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.input-t1 {
+    margin: 15px 0px;
+    padding: 5px;
+    margin-right: 20px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: none;
+    border-bottom: 1px solid #000000;
+    font-size: 1.1rem;
+}
+.input-t1:focus {
+    outline: none;
+}
+
+.btn-login {
+    margin-top: 10px;
+    padding: 5px;
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background-color: #328f8a;
+    background-image: linear-gradient(45deg,#39aba5,#1ad468);
+    width: 100%;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    color: #ffffff;
+    font-size: 15px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+.messege {
+    text-align: center;
+}
+#click-register {
+    text-decoration: none;
+    color: rgb(5, 123, 220);
+}
+
+
+@media all and (max-width: 450px) {
+    .login-page {
+        width: 90%;
+    }
+}

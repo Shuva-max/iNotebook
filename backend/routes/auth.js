@@ -19,8 +19,9 @@ router.post('/createuser', [   //condition validation and errors msg using exper
 ], async (req, res)=>{  // It is a async function
     //check the validation and if errors occured📍 then send bad request with error msg📧
     const errors = validationResult(req);
+    let status = false;
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });  //send errors array🧰🛠
+      return res.status(400).json({status, errors: errors.array() });  //send errors array🧰🛠
     }
 
     try {
@@ -28,7 +29,7 @@ router.post('/createuser', [   //condition validation and errors msg using exper
         let user = await User.findOne({email: req.body.email}); //searching in our db🧐🌐
         if (user){
             // Its very very important to write return otherwise our app will crase☢ whenever user post a bad request🔰
-            return res.status(400).json({ error:"Sorry a user with this email is already exists" });
+            return res.status(400).json({status, error:"Sorry a user with this email is already exists" });
         }
 
         //adding salt🧪 by creating bcrypt.genSalt() and create a hash text🈲 that's store in a variable called 'secPass' which is actually store in our db🌐
@@ -47,8 +48,8 @@ router.post('/createuser', [   //condition validation and errors msg using exper
             id: user.id
         }
         const authToken = jwt.sign(data, JWT_SECRET);
-
-        res.status(201).json({authToken});
+        status = true
+        res.status(201).json({status, authToken});
         
     } catch (err) {
         console.error(err.massage);
@@ -67,8 +68,9 @@ router.post('/login', [   //condition validation and errors msg
 ], async(req, res)=>{   // It is a async function
     //check the validation and if errors occured then send bad request with error msg📧
     const errors = validationResult(req);
+    let status = false;
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({status, errors: errors.array() });
     }
 
     const {email, password} = req.body;  //Destructuring from our request body to email, password
@@ -76,12 +78,12 @@ router.post('/login', [   //condition validation and errors msg
         //searching user in db with the help off email🧐🌐
         let user = await User.findOne({email:email});
         if(!user){
-            return res.status(400).json({error: "Please put the right credential!"});
+            return res.status(400).json({status, error: "Please put the right credential!"});
         }
 
         const passwordCompare = await bcrypt.compare(password, user.password);  //compare login password to our hash pass which is store in our db
         if(!passwordCompare){
-            return res.status(400).json({error: "Please put the right credential!"});
+            return res.status(400).json({status, error: "Please put the right credential!"});
         }
 
         const data = {
@@ -91,8 +93,8 @@ router.post('/login', [   //condition validation and errors msg
         }
 
         const authToken = jwt.sign(data, JWT_SECRET);
-
-        res.json({authToken});
+        status = true;
+        res.json({status, authToken});
     } catch (error) {
         console.error(error.massage);
         res.status(500).send("Internal server errors!!");

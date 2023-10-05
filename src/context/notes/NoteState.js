@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import noteContext from "./noteContext";
 
 const NoteState = (props) =>{
   const host = "http://localhost:5000";
+
     const noteItem = []
 
     const [notes, setNotes] = useState(noteItem);
@@ -16,7 +17,7 @@ const NoteState = (props) =>{
             method: "GET", // *GET, POST, PUT, DELETE, etc.
             headers: {
               "Content-Type": "application/json",
-              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3ZGEyMzg5NGJjNjk4MmNmZTE2NSIsImlhdCI6MTY5NjEwMzg0Mn0.7Foj__Q7q3V01IGM5gJU003vBV28GROvvuTtEuESYz8"
+              "auth-token": localStorage.getItem('token')
             }
           });
           // return response.json(); // parses JSON response into native JavaScript objects
@@ -33,7 +34,7 @@ const NoteState = (props) =>{
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
               "Content-Type": "application/json",
-              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3ZGEyMzg5NGJjNjk4MmNmZTE2NSIsImlhdCI6MTY5NjEwMzg0Mn0.7Foj__Q7q3V01IGM5gJU003vBV28GROvvuTtEuESYz8"
+              "auth-token": localStorage.getItem('token')
             },
             body: JSON.stringify({title:n.title, description:n.description, tag:n.tag}), // body data type must match "Content-Type" header
           });
@@ -51,7 +52,7 @@ const NoteState = (props) =>{
             method: "DELETE", // *GET, POST, PUT, DELETE, etc.
             headers: {
               "Content-Type": "application/json",
-              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3ZGEyMzg5NGJjNjk4MmNmZTE2NSIsImlhdCI6MTY5NjEwMzg0Mn0.7Foj__Q7q3V01IGM5gJU003vBV28GROvvuTtEuESYz8"
+              "auth-token": localStorage.getItem('token')
             }
           });
           const json = await response.json();
@@ -69,7 +70,7 @@ const NoteState = (props) =>{
             method: "PUT", // *GET, POST, PUT, DELETE, etc.
             headers: {
               "Content-Type": "application/json",
-              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTg3ZGEyMzg5NGJjNjk4MmNmZTE2NSIsImlhdCI6MTY5NjEwMzg0Mn0.7Foj__Q7q3V01IGM5gJU003vBV28GROvvuTtEuESYz8"
+              "auth-token": localStorage.getItem('token')
             },
             body: JSON.stringify({title: title, description: description, tag: tag}), // body data type must match "Content-Type" header
           });

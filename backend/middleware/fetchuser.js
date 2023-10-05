@@ -8,7 +8,7 @@ const fetchuser = async (req, res, next)=>{
         return res.status(401).send({error:  "Invalid token!!"});
     }try {
         const data = await jwt.verify(token, JWT_SECRET)  //verify ongoing🧐
-        req.user = data
+        req.user = data.user;
         next();  //after completing the task of the function it's very imp to call next(): so that the next function is called 
         
     } catch (error) {

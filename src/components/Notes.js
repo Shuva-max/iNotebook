@@ -82,6 +82,12 @@ export default function Notes() {
     <div className="row my-3">
         <h2>Your Notes</h2>
 
+        <div className="container">
+          {notes.length === 0 && "no notes to display"}
+
+        </div>
+
+
         {notes.map((note)=>{
             return <NoteItem key={note._id} note={note} editClickNote={editClickNote} tag={note.tag} />
         })}
