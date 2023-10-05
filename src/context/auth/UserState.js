@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import userContext from './userContext'
 
 const UserState = (props) => {
@@ -20,6 +20,22 @@ const UserState = (props) => {
         }else {
           console.log('no token')
         }
+      }
+
+      // get Login or register user data
+      const [lu1, setLu1] = useState()
+    const getUser = async()=>{
+        const response = await fetch(`${host}/api/auth/getuser`, {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token" : localStorage.getItem('token')
+          }
+        });
+        const json = await response.json();
+        console.log(json);
+        setLu1(json)
+        
       }
 
     //singup a user
@@ -44,7 +60,7 @@ const UserState = (props) => {
     }
 
     return (
-        <userContext.Provider value={{ userLogin, userRegister }}>
+        <userContext.Provider value={{ userLogin, userRegister, lu1, getUser }}>
             {props.children}
         </userContext.Provider>
     )

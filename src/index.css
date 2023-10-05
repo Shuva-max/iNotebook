@@ -35,7 +35,7 @@ i{
 
 /* userName style in Navber component */
 #userName {
-  margin: 6px 27px;
+  margin: 6px 0px;
   cursor: pointer;
 }
 .div-logout {
@@ -43,7 +43,7 @@ i{
   justify-content: space-between;
 }
 .btn-logout {
-  margin: 6px 40px;
+  margin: 6px 10px;
 }
 .note-1 {
   border: 1px solid black;

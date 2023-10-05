@@ -58,16 +58,16 @@ export default function Notes() {
       <form className='form-container'>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">Title</label>
-            <input type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" autoComplete="username" onChange={onChange} value={note.title} />
+            <input min={3} type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" autoComplete="username" onChange={onChange} value={note.title} required={true} />
           </div>
 
           <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
-            <input type="text" className="form-control desc" id="description" name='description' autoComplete="current-password" onChange={onChange} value={note.description} />
+            <input min={5} type="text" className="form-control desc" id="description" name='description' autoComplete="current-password" onChange={onChange} value={note.description} required={true} />
           </div>
           <div className="mb-3">
             <label htmlFor="tag" className="form-label">tag</label>
-            <input type="text" className="form-control desc" id="tag" name='tag' autoComplete="current-password" onChange={onChange} value={note.tag} />
+            <input min={2} type="text" className="form-control desc" id="tag" name='tag' autoComplete="current-password" onChange={onChange} value={note.tag} required={true} />
           </div>
 
         </form>
@@ -75,7 +75,7 @@ export default function Notes() {
       <div className="modal-footer">
         <button type="button" className="btn btn-primary" onClick={handleClick} >Update</button>
       </div>
-    </div>
+    </div>  
   </div>
 </div>
 

@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {Link, useLocation} from 'react-router-dom';
+import userContext from '../context/auth/userContext';
 
-export default function Navbar(props) {
+export default function Navbar() {
   const location = useLocation();
+  const {lu1} = useContext(userContext)
+  useEffect(()=>{
+
+  },[lu1])
 
   return (
     <>
@@ -16,7 +21,7 @@ export default function Navbar(props) {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <Link className={`nav-link ${location.pathname === '/'?'active':""}`} aria-current="page" to="/">Home</Link>
+          <Link className={`nav-link ${location.pathname === '/usernotes'?'active':""}`} aria-current="page" to="/usernotes">Home</Link>
         </li>
         <li className="nav-item">
           <Link className={`nav-link ${location.pathname === '/about'?'active':""}`} aria-current="page" to="/about">About</Link>
@@ -33,7 +38,7 @@ export default function Navbar(props) {
 </nav>
     </div>
     <div className="user div-logout">
-      <h5 id='userName'> <i className="fa-solid fa-user"></i> Hello, {props.userName} </h5>
+      <h5 id='userName'> <i className="fa-solid fa-user"></i> Hello, {lu1?lu1.name:'userName'} </h5>
       <button className="btn btn-primary btn-logout" >Logout</button>
     </div>
 

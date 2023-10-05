@@ -3,7 +3,7 @@ import './Register.css';
 import userContext from '../../context/auth/userContext';
 
 const Register = (props) => {
-    const {userRegister} = useContext(userContext);
+    const { userRegister } = useContext(userContext);
     
     const [user, setUser] = useState({})
 
@@ -15,11 +15,8 @@ const Register = (props) => {
         e.preventDefault();
         // api call
         userRegister(user.name, user.email, user.password);
-        setInterval(()=>{
-            props.token({status: true, token: localStorage.getItem('token')})
-
-        }, 5000);
-    }
+        props.toggleShow()
+        }
 
   return (
         <div className="body">

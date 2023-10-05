@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Home from "./components/Home";
-import About from "./components/About";
 import Navbar from "./components/Navbar";
 import NoteState from "./context/notes/NoteState";
+import About from "./components/About";
 // import Alert from "./components/Alert";
 import { Routes, Route, useNavigate } from "react-router-dom";
 // import { useState } from "react";
@@ -36,7 +36,7 @@ function App() {
 
                 <Route path='/' element={<div></div>} />
                 {token.status && <Route exact path="/usernotes" element={<Home />} /> }
-                {token.status && <Route exact path="/about" element={<About />} /> }
+                {token.status && <Route exact path="/about" element={<About/> } /> }
                 
               </Routes>
             </div>

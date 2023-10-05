@@ -3,24 +3,27 @@ import './login.css';
 import userContext from '../../context/auth/userContext';
 
 const Login = (props) => {
-  const { userLogin } = useContext(userContext);
+  const { userLogin, getUser } = useContext(userContext);
 
   const [user, setUser] = useState({});
 
   const onChange = (e)=>{
     setUser({...user, [e.target.name]:e.target.value});
   }
-
+  let timerid
   const handleSubmit = async (e)=>{
     e.preventDefault()
     console.log('handleSubmit is clicked')
     // api call
     userLogin(user.email, user.password);
-    setInterval(()=>{
-      props.token({status: true, token: localStorage.getItem('token')})
-
-  }, 5000);
+      timerid = setTimeout(()=>{
+        props.token({status: true, token: localStorage.getItem('token')})
+        getUser();
+        console.log('from setInterval')
+  
+    }, 5000);
   }
+  clearTimeout(timerid)
 
   return (
     <div className="body-b1">
