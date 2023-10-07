@@ -1,20 +1,36 @@
 import React, { useContext, useEffect } from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import userContext from '../context/auth/userContext';
+import noteContext from '../context/notes/noteContext';
 
-export default function Navbar() {
+export default function Navbar(props) {
   const location = useLocation();
-  const {lu1} = useContext(userContext)
+  const {setNotes} = useContext(noteContext)
+  const navigate = useNavigate()
+
+  const {lu1, setLu1} = useContext(userContext)
   useEffect(()=>{
 
   },[lu1])
+
+  let timerid
+  const handleLogout = ()=>{
+    localStorage.setItem('token', "")
+    timerid = setTimeout(()=>{
+      props.token({status: false, token: localStorage.getItem('token')})
+      setLu1({name: ""})
+      setNotes([])
+      navigate("/")
+  }, 2000);    
+  }
+  clearTimeout(timerid)
 
   return (
     <>
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <div className="container-fluid">
-    <Link className="navbar-brand" to="/">iNotebook</Link>
+    <span className="navbar-brand" >iNotebook</span>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -38,8 +54,8 @@ export default function Navbar() {
 </nav>
     </div>
     <div className="user div-logout">
-      <h5 id='userName'> <i className="fa-solid fa-user"></i> Hello, {lu1?lu1.name:'userName'} </h5>
-      <button className="btn btn-primary btn-logout" >Logout</button>
+      <h5 id='userName'> <i className="fa-solid fa-user"></i>{lu1?lu1.name:'userName'}</h5>
+      <button onClick={handleLogout} className="btn btn-primary btn-logout" >Logout</button>
     </div>
 
     </>

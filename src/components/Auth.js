@@ -5,12 +5,12 @@ import Register from './login-singup/Register';
 const Auth = (props) => {
     const [currStatus, setCurrStatus] = useState(true)
     const toggleShow = ()=>{
-        console.log("toggleShow onclicked..")
+        // console.log("toggleShow onclicked..")
         setCurrStatus(!currStatus)
     }
 
     useEffect(()=>{
-        console.log('useEffect on Auth componet')
+        // console.log('useEffect on Auth componet')
     }, [currStatus])
 
   return (

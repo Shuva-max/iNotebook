@@ -76,6 +76,7 @@ form{
     text-align: center;
 }
 #click-register {
+    cursor: pointer;
     text-decoration: none;
     color: rgb(5, 123, 220);
 }

@@ -13,13 +13,13 @@ const Login = (props) => {
   let timerid
   const handleSubmit = async (e)=>{
     e.preventDefault()
-    console.log('handleSubmit is clicked')
+    // console.log('handleSubmit is clicked')
     // api call
     userLogin(user.email, user.password);
       timerid = setTimeout(()=>{
         props.token({status: true, token: localStorage.getItem('token')})
         getUser();
-        console.log('from setInterval')
+        // console.log('from setInterval')
   
     }, 5000);
   }
@@ -37,7 +37,7 @@ const Login = (props) => {
             </div>
             <form className="login-form" onSubmit={handleSubmit} >
                 <input onChange={onChange} className="input-t1" type="text" placeholder="username" name="email" />
-                <input onChange={onChange} className="input-t1" type="text" placeholder="password" name="password" />
+                <input onChange={onChange} className="input-t1" type="password" placeholder="password" name="password" />
                 <button type="submit" className="btn-login">Login</button>
             </form>
             <p className="messege">Not a member? <span id="click-register" href="/auth/register" onClick={()=>{props.toggleShow()}} > Register</span></p>

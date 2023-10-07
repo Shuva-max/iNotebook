@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import noteContext from "./noteContext";
 
 const NoteState = (props) =>{
-  const host = "http://localhost:5000";
+  const host = "https://inotebookbackend-tyuv.onrender.com";
 
     const noteItem = []
 
@@ -22,7 +22,7 @@ const NoteState = (props) =>{
           });
           // return response.json(); // parses JSON response into native JavaScript objects
           const json = await response.json();
-          console.log(json);
+          // console.log(json);
           setNotes(json);  
         }
         //ADD a note
@@ -39,7 +39,7 @@ const NoteState = (props) =>{
             body: JSON.stringify({title:n.title, description:n.description, tag:n.tag}), // body data type must match "Content-Type" header
           });
           // return response.json(); // parses JSON response into native JavaScript objects
-          console.log("Adding a new note")
+          // console.log("Adding a new note")
           const note = await response.json();
           
           setNotes(notes.concat(note))  
@@ -47,7 +47,7 @@ const NoteState = (props) =>{
         //Delete a note
         const deleteNote = async (id)=>{
           //TODO API call
-          console.log("Deleting note" , id)
+          // console.log("Deleting note" , id)
           const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
             method: "DELETE", // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -62,7 +62,7 @@ const NoteState = (props) =>{
         }
         //Edit a note
         const editNote = async(id, title, description, tag)=>{
-          console.log("note is editing..")
+          // console.log("note is editing..")
           //API call
           //fetch api call
           // Default options are marked with *
@@ -89,13 +89,13 @@ const NoteState = (props) =>{
               break;
             }
           }
-          console.log(eNote)
+          // console.log(eNote)
           setNotes(eNote)
         
         }
 
     return (
-        <noteContext.Provider value={{notes, addNote, deleteNote, editNote, getNotes}}>
+        <noteContext.Provider value={{notes, addNote, deleteNote, editNote, getNotes, setNotes }}>
             {props.children}
         </noteContext.Provider>
     )

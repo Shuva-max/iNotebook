@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import userContext from './userContext'
 
 const UserState = (props) => {
-    const host = "http://localhost:5000";
+    const host = "https://inotebookbackend-tyuv.onrender.com";
 
     //login a user
     const userLogin = async(email, password)=>{
@@ -14,11 +14,11 @@ const UserState = (props) => {
           body: JSON.stringify({email:email, password:password})
         });
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         if(json){
           localStorage.setItem('token', json.authToken)
         }else {
-          console.log('no token')
+          // console.log('no token')
         }
       }
 
@@ -33,7 +33,7 @@ const UserState = (props) => {
           }
         });
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         setLu1(json)
         
       }
@@ -48,19 +48,19 @@ const UserState = (props) => {
         body: JSON.stringify({name: name, email: email, password: password}), // body data type must match "Content-Type" header
       });
       // return response.json(); // parses JSON response into native JavaScript objects
-      console.log("Creating a new User")
+      // console.log("Creating a new User")
       const u1 = await response.json();
-      console.log(u1)
+      // console.log(u1)
       if(u1){
         localStorage.setItem('token', u1.authToken)
 
       }else {
-        console.log('no token')
+        // console.log('no token')
       }
     }
 
     return (
-        <userContext.Provider value={{ userLogin, userRegister, lu1, getUser }}>
+        <userContext.Provider value={{ userLogin, userRegister, lu1, getUser, setLu1 }}>
             {props.children}
         </userContext.Provider>
     )

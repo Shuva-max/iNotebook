@@ -7,37 +7,41 @@ body{
     background-attachment: fixed;
     background-color: #8BC6EC;
     background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-.body{
+.bg1{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh;
+    height: 84vh;
+    /* border: 1px solid black; */
 }
 
 .register-page{
     align-content: center;
     background-color: white;
     border-radius: 10px;
-    width: 24%;
-    height: 68%;
+    width: 22%;
+    height: 72%;
     box-shadow: 9px 11px 8px grey;
-}
-
-form{
-    margin: 20px;
-    padding: 10px;
+    /* border: 1px solid rgb(231, 6, 6); */
 }
 
 .h3-register{
+    margin: 25px 0px 3px 0px;
     text-align: center;
     border-bottom: 1px solid black;
 }
+form{
+    margin: 20px;
+    padding: 10px;
+    /* border: 2px solid rgb(0, 42, 255); */
+}
 
-.input{
+.rip{
     margin: 15px 0px;
     padding: 5px;
     margin-right: 20px;
@@ -49,11 +53,6 @@ form{
     outline: none;
     
 }
-
-
-    
-
-
 
 .bt-register{
     margin-top: 10px;

@@ -25,7 +25,7 @@ export default function Notes() {
     
   
   const handleClick = ()=>{
-    console.log('Updating the note', note)
+    // console.log('Updating the note', note)
     editNote(note._id, note.title, note.description, note.tag)  //api call
     refClose.current.click()
   }
