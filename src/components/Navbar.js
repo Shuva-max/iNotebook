@@ -6,29 +6,29 @@ import noteContext from '../context/notes/noteContext';
 export default function Navbar(props) {
   const location = useLocation();
   const {setNotes} = useContext(noteContext)
+  const {lu1, setLu1} = useContext(userContext)
   const navigate = useNavigate()
 
-  const {lu1, setLu1} = useContext(userContext)
   useEffect(()=>{
 
   },[lu1])
 
   let timerid
   const handleLogout = ()=>{
-    localStorage.setItem('token', "")
+    localStorage.setItem('token', '')
     timerid = setTimeout(()=>{
       props.token({status: false, token: localStorage.getItem('token')})
       setLu1({name: ""})
       setNotes([])
-      navigate("/")
-  }, 2000);    
+      navigate('/')
+  }, 1500);    
   }
   clearTimeout(timerid)
 
   return (
     <>
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav id='navber001' className="navbar navbar-expand-lg navbar-light">
   <div className="container-fluid">
     <span className="navbar-brand" >iNotebook</span>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@ export default function Navbar(props) {
       </ul>
       <form className="d-flex">
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
+        <button className="btn btn-outline-success" type="button">Search</button>
       </form>
     </div>
   </div>
@@ -55,7 +55,7 @@ export default function Navbar(props) {
     </div>
     <div className="user div-logout">
       <h5 id='userName'> <i className="fa-solid fa-user"></i>{lu1?lu1.name:'userName'}</h5>
-      <button onClick={handleLogout} className="btn btn-primary btn-logout" >Logout</button>
+      <button id='btn-logout01' onClick={handleLogout} className="btn btn-primary btn-logout" >Logout</button>
     </div>
 
     </>

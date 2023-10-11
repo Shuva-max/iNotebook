@@ -15,11 +15,13 @@ const UserState = (props) => {
         });
         const json = await response.json();
         // console.log(json);
-        if(json){
+        if(json.status){
           localStorage.setItem('token', json.authToken)
         }else {
           // console.log('no token')
+          localStorage.setItem('token', '')
         }
+        return json
       }
 
       // get Login or register user data
@@ -51,12 +53,14 @@ const UserState = (props) => {
       // console.log("Creating a new User")
       const u1 = await response.json();
       // console.log(u1)
-      if(u1){
+      if(u1.status){
         localStorage.setItem('token', u1.authToken)
-
       }else {
         // console.log('no token')
+        localStorage.setItem('token', '')
+        alert(u1.error)
       }
+      return u1
     }
 
     return (

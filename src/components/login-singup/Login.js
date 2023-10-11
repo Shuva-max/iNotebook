@@ -10,20 +10,22 @@ const Login = (props) => {
   const onChange = (e)=>{
     setUser({...user, [e.target.name]:e.target.value});
   }
-  let timerid
+
   const handleSubmit = async (e)=>{
     e.preventDefault()
     // console.log('handleSubmit is clicked')
     // api call
-    userLogin(user.email, user.password);
-      timerid = setTimeout(()=>{
+    const json = await userLogin(user.email, user.password);
+
+    if(json.status){
         props.token({status: true, token: localStorage.getItem('token')})
         getUser();
-        // console.log('from setInterval')
-  
-    }, 5000);
+        // console.log('from setInterval')  
+    } else {
+      props.token({status: false})
+      alert(json.error)
+    }
   }
-  clearTimeout(timerid)
 
   return (
     <div className="body-b1">
