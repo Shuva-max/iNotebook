@@ -42,7 +42,9 @@ const NoteState = (props) =>{
           // console.log("Adding a new note")
           const note = await response.json();
           
-          setNotes(notes.concat(note))  
+          setNotes(notes.concat(note.note))  
+          // console.log(note)
+          return note.status
         }
         //Delete a note
         const deleteNote = async (id)=>{
@@ -56,9 +58,10 @@ const NoteState = (props) =>{
             }
           });
           const json = await response.json();
-          console.log(json)
+          // console.log(json)
           const newNote = notes.filter((note)=>{return note._id !== id});
           setNotes(newNote);
+          return json.status
         }
         //Edit a note
         const editNote = async(id, title, description, tag)=>{
@@ -76,7 +79,7 @@ const NoteState = (props) =>{
           });
           // return response.json(); // parses JSON response into native JavaScript objects
           const json = await response.json();
-          console.log(json)
+          // console.log(json)
 
           //logic to implement edit operation in clint
           const eNote = await JSON.parse(JSON.stringify(notes));
@@ -91,7 +94,7 @@ const NoteState = (props) =>{
           }
           // console.log(eNote)
           setNotes(eNote)
-        
+          return json.status;
         }
 
     return (

@@ -21,13 +21,16 @@ i{
 }
 
 /* for addNote component description style */
+#desc01, #title01, #tag01 {
+  background-image: url(./bg-images/dairy_rule_page_pc.jpg);
+}
 #desc01 {
   font-size:1.1rem;
   width: 100%;
   height: 150px;
   padding: 12px 34px;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 15px;
   background-color: #beffe3;
   resize: none;
 }
@@ -35,21 +38,22 @@ i{
   font-size:1.1rem;
   padding: 12px 34px;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 15px;
   background-color: #beffe3;
   resize: none;
 
 }
 #tag01 {
   font-size:1.1rem;
-  padding: 12px 20px;
+  padding: 12px 34px;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 15px;
   background-color: #beffe3;
   resize: none;
 }
 #btn-add {
-  background-color: #a9f7d5;
+  margin-top: 15px;
+  background-color: #2697e7;
   color: #000000;
   border: none;
   font-size: 1.2rem;
@@ -62,6 +66,8 @@ i{
   background-color: #0f6431;
   color: #ffffff;
 }
+
+
 /* logout btn style */
 #btn-logout01 {
   padding: 12px;
@@ -81,10 +87,13 @@ i{
 /* NoteItem style */
 .card {
   background-color: #c7d4cf;
-  background-image: url(./dairy_page.png);
+  background-image: url(./bg-images/note-bg.jpg);
+}
+.note-title-01 {
+  min-width: 0;
 }
 #update-modal01 {
-  background-image: url(./update_dairy_page.png);
+  background-image: url(./bg-images/update_dairy_page.jpeg);
 }
 
 /* Note style */
@@ -96,7 +105,7 @@ i{
   outline: 0;
   background-color: #328f8a;
   background-image: linear-gradient(45deg,#fc9032,#ffe23f);
-  width: 100%;
+  width: 40%;
   height: 35px;
   border: none;
   border-radius: 20px;
@@ -106,15 +115,35 @@ i{
   transition: all 0.3 ease;
   cursor: pointer;
 }
+.form-container {
+  margin: 0px;
+}
+.title02{
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+.desc02 {
+  height: 85px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
 
 /* userName style in Navber component */
 #userName {
-  margin: 6px 0px;
   cursor: pointer;
 }
 .div-logout {
+  margin: 0px 0px 8px 0px;
+  padding: 0px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.div-back-logout {
+  background-image: linear-gradient(183deg, #75beed 10%, #989cdd 90%);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 .btn-logout {
   margin: 6px 10px;
@@ -130,7 +159,7 @@ i{
   margin: 10px 3px 8px 3px;
 }
 #navber001 {
-  background-color: #40b9ff3e;
+  background-color: #61b2ee;
   padding: 0px;
 }
 
@@ -139,18 +168,17 @@ i{
   border: none;
 }
 
-@media all and (max-width: 369px) {
+@media all and (max-width: 330px) {
   #desc01, #title01, #tag01 {
-    background-image: url(./dairy_rule_page.jpg);
+    background-image: url(./bg-images/dairy_rule_page.jpg);
     background-repeat: repeat-y;
-  }
+  }  
+}
+@media all and (max-width: 989px) {
   #btn-logout01 {
     padding: 5px;
     font-size: 1rem;
     width: 100px;
-  }
-  .div-logout {
-    margin: 7px 0px 0px 0px;
   }
   #navber001 {
     padding-top: 0.5rem;

@@ -1,16 +1,29 @@
 import React, {useContext, useState} from 'react'
 import noteContext from '../context/notes/noteContext';
+import alertContext from '../context/alertContext';
 
 export default function Form() {
   const context = useContext(noteContext);
   const {addNote} = context;
 
+  const {showAlert} = useContext(alertContext)
+
   const [note, setNote] = useState({title:"", description:"", tag:""});
   
-  const handleClick = (e)=>{
+  const handleClick = async (e)=> {
     e.preventDefault();
-    addNote(note);
-    setNote({title:"", description:"", tag:""});
+    // let txt; 
+    // txt = document.getElementById('desc01').value.split("\n");
+    // let str = txt.join('<br/>');
+    // console.log(str)
+    // api call
+    const update = await addNote(note);
+    if(update){
+      showAlert(":  Note added successfully", "success")
+      setNote({title:"", description:"", tag:""})
+    }else {
+      showAlert(": Internal server error!!", "danger")
+    }
   }
   const onChange = (e)=>{
     setNote({...note, [e.target.name]:e.target.value});  //using sprade operator
@@ -21,7 +34,7 @@ export default function Form() {
       <form className='form-container'>
           <div className="mb-3">
             {/* <label htmlFor="title" className="form-label">Title</label> */}
-            <input id='title01' value={note.title} type="text" className="form-control"  name='title' aria-describedby="emailHelp" autoComplete="username" onChange={onChange} placeholder='Title' />
+            <textarea id='title01' value={note.title} type="text" className="form-control"  name='title' aria-describedby="emailHelp" autoComplete="username" onChange={onChange} placeholder='Title' />
           </div>
 
           <div className="mb-3">

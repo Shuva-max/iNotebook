@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import alertContext from "../context/alertContext";
 
-export default function Alert(props) {
+export default function Alert() {
+  const {alert} = useContext(alertContext)
     const capitalize = (word)=> {
         const lower = word.toLowerCase();
         return ( lower.charAt(0).toUpperCase() + lower.slice(1) );
@@ -8,11 +10,11 @@ export default function Alert(props) {
     
 
   return (
-    <div style={{height:'3.7em'}}> 
-      {props.alert && <div className={`alert alert-${props.alert.type === 'success: '?'success':'warning'} d-flex align-items-center`} role="alert">
+    <div > 
+      {alert && <div className={`alert alert-${alert.type} d-flex align-items-center`} role="alert" style={{borderRadius:'.55rem'}} >
       <svg className="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"></svg>
       <div>
-        {capitalize(props.alert.type) + props.alert.msg} 
+        {capitalize(alert.type) + alert.msg} 
       </div>
     </div>}
     </div>

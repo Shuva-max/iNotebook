@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState  } from 'react';
 import NoteContext from '../context/notes/noteContext';
+import alertContext from '../context/alertContext';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 import { useEffect } from 'react';
@@ -23,11 +24,24 @@ export default function Notes() {
       // eslint-disable-next-line 
     }, [] )
     
-  
-  const handleClick = ()=>{
+  const {showAlert} = useContext(alertContext)
+  const handleClick = async ()=>{
     // console.log('Updating the note', note)
-    editNote(note._id, note.title, note.description, note.tag)  //api call
+    // let txt; 
+    // txt = document.getElementById('description').value.split("\n");
+    // let str = txt.join('</br>');
+    // setNote({description: str})
+
+    //api call
     refClose.current.click()
+    const update = await editNote(note._id, note.title, note.description, note.tag) 
+    if(update){
+      // show alert
+      showAlert(": Note is updated", "success")
+    }else {
+      showAlert(": Internal server error!!", "danger")
+    }
+
   }
   const onChange = (e)=>{
     setNote({...note, [e.target.name]:e.target.value});  //using sprade operator
@@ -57,16 +71,16 @@ export default function Notes() {
       <form className='form-container'>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">Title</label>
-            <input min={3} type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" autoComplete="username" onChange={onChange} value={note.title} required={true} />
+            <textarea style={{resize:'none'}} min={3} type="text" className="form-control title02" id="title" name='title' aria-describedby="emailHelp" autoComplete="username" onChange={onChange} value={note.title} required={true} />
           </div>
 
           <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
-            <textarea style={{resize:'none'}} min={5} type="text" className="form-control desc" id="description" name='description' autoComplete="current-password" onChange={onChange} value={note.description} required={true} />
+            <textarea style={{resize:'none'}} min={5} type="text" className="form-control desc02" id="description" name='description' autoComplete="current-password" onChange={onChange} value={note.description} required={true} />
           </div>
           <div className="mb-3">
             <label htmlFor="tag" className="form-label">tag</label>
-            <input min={2} type="text" className="form-control desc" id="tag" name='tag' autoComplete="current-password" onChange={onChange} value={note.tag} required={true} />
+            <input min={2} type="text" className="form-control tag02" id="tag" name='tag' autoComplete="current-password" onChange={onChange} value={note.tag} required={true} />
           </div>
 
         </form>

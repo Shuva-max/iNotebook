@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import NoteState from "./context/notes/NoteState";
+import UserState from "./context/auth/UserState";
+import AlertState from './context/AlertState';
+
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import NoteState from "./context/notes/NoteState";
 import About from "./components/About";
-// import Alert from "./components/Alert";
-import { Routes, Route, useNavigate } from "react-router-dom";
-// import { useState } from "react";
+import Alert from "./components/Alert";
 import Auth from './components/Auth';
-import UserState from "./context/auth/UserState";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 function App() {
 
@@ -21,17 +22,24 @@ function App() {
     }
   }, [token.token])
 
+  // const {alert} = useContext(alertContext)
+
   return (
     <>
       <NoteState>
       <UserState>
+      <AlertState>
+
           <div className="App">
           {!token.status && <Auth token={setToken} /> }
 
             {token.status && <Navbar token={setToken} /> }
-            {/* <div className="alert">
-              <Alert alert={alert}/>
-            </div> */}
+
+            {/* Alert component */}
+            <div className="" style={{height:'59px', position: 'sticky', top:'46px', zIndex: 1}}>
+              <Alert />
+            </div>
+
             <div className="container">
             <Routes>
 
@@ -43,6 +51,7 @@ function App() {
             </div>
           </div>
         
+          </AlertState>
         </UserState>
       </NoteState>
     </>
