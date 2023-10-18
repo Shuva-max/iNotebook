@@ -13,8 +13,28 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 function App() {
 
   const [token, setToken] = useState({status:false, token:''})
+  const [load, setLoad] = useState({status: false})
   const navigate = useNavigate();
   // const [render, setRender] = useState(false)
+
+  useEffect(()=>{
+    const stServer = async()=>{
+      const response = await fetch('https://inotebookbackend-tyuv.onrender.com/api/auth/stserver', {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      const json = await response.json();
+      console.log(json);    
+      if(json.path === '/stserver'){
+        setLoad({status: true})
+      }
+    }
+    stServer();
+    // eslint-disable-next-line
+  }, [])
+
   useEffect(()=>{
     if(token.token !== '' ){
       // console.log('this is from naviagte useEffect', token.token)
@@ -31,14 +51,15 @@ function App() {
       <AlertState>
 
           <div className="App">
+
           {!token.status && <Auth token={setToken} /> }
 
             {token.status && <Navbar token={setToken} /> }
 
             {/* Alert component */}
-            <div className="" style={{height:'59px', position: 'sticky', top:'46px', zIndex: 1}}>
+            {token.status && <div className="" style={{height:'59px', position: 'sticky', top:'46px', zIndex: 1}}>
               <Alert />
-            </div>
+            </div>}
 
             <div className="container">
             <Routes>

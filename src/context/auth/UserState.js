@@ -3,6 +3,7 @@ import userContext from './userContext'
 
 const UserState = (props) => {
     const host = "https://inotebookbackend-tyuv.onrender.com";
+    // const host = "http://localhost:5000";  //http://localhost:5000/api/auth/stserver
 
     //login a user
     const userLogin = async(email, password)=>{
@@ -58,7 +59,6 @@ const UserState = (props) => {
       }else {
         // console.log('no token')
         localStorage.setItem('token', '')
-        alert(u1.error)
       }
       return u1
     }

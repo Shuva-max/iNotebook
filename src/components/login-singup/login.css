@@ -2,7 +2,6 @@
     padding: 0px;
     margin: 0;
     box-sizing: border-box;
-    height: 100vh;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -17,7 +16,7 @@
     justify-content: center;
     align-items: center;
     /* border: 2px solid rgb(30, 172, 37); */
-    height: 75vh;
+    height: 84vh;
 }
 .login-page{
     align-content: center;
