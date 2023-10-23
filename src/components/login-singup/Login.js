@@ -30,7 +30,7 @@ const Login = (props) => {
           getUser();
           // console.log('from setInterval')  
       } else {
-        showAlert(`: ${json.error}`, "danger")
+        showAlert(`: ${json.error || json.errors[0].msg}`, "danger")
       }
     }      
     } catch (error) {

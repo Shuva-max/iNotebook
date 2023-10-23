@@ -32,7 +32,7 @@ const Register = (props) => {
                         showAlert("User register successfully...use your cerdentials to Login", 'success')
                         props.toggleShow()
                     } else {
-                        showAlert(`: ${json.error}`, 'danger')
+                        showAlert(`: ${json.error || json.errors[0].msg}`, 'danger')
                     }
                     }
             }            

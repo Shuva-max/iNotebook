@@ -33,13 +33,12 @@ body{
     /* border: 1px solid rgb(231, 6, 6); */
 }
 .rform {
-    
+    height: max-content;
     align-content: center;
     background-color: white;
     /* border: 1px solid rgb(255, 0, 0); */
     border-radius: 10px;
     width: 22%;
-    height: 70%;
     box-shadow: 9px 11px 8px #666565;
 }
 

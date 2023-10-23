@@ -9,6 +9,7 @@ import About from "./components/About";
 import Alert from "./components/Alert";
 import Auth from './components/Auth';
 import { Routes, Route, useNavigate } from "react-router-dom";
+import Spinner from './components/Spinner';
 
 function App() {
 
@@ -26,9 +27,10 @@ function App() {
         }
       });
       const json = await response.json();
-      console.log(json);    
+      // console.log(json);    
       if(json.path === '/stserver'){
         setLoad({status: true})
+        console.log(load.status)
       }
     }
     stServer();
@@ -52,12 +54,14 @@ function App() {
 
           <div className="App">
 
-          {!token.status && <Auth token={setToken} /> }
+            { !load.status && <Spinner /> }
 
-            {token.status && <Navbar token={setToken} /> }
+          {!token.status && load.status && <Auth token={setToken} /> }
+
+            {token.status && load.status && <Navbar token={setToken} /> }
 
             {/* Alert component */}
-            {token.status && <div className="" style={{height:'59px', position: 'sticky', top:'46px', zIndex: 1}}>
+            {token.status && load.status && <div className="" style={{height:'59px', position: 'sticky', top:'46px', zIndex: 1}}>
               <Alert />
             </div>}
 
