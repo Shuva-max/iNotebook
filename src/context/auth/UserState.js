@@ -48,7 +48,7 @@ const UserState = (props) => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({name: name, email: email, password: password}), // body data type must match "Content-Type" header
+        body: JSON.stringify({name: name, email: email, password: password}) // body data type must match "Content-Type" header
       });
       // return response.json(); // parses JSON response into native JavaScript objects
       // console.log("Creating a new User")
@@ -63,8 +63,22 @@ const UserState = (props) => {
       return u1
     }
 
+    // change password api
+    const changePassword = async ({pass, cnPass})=> {
+      const response = await fetch(`${host}/api/auth/changepass`, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token" : localStorage.getItem('token')
+        },
+        body: JSON.stringify({password: pass, newpass: cnPass})
+      });
+      const json = await response.json();      
+      return json.status || false;
+    }
+
     return (
-        <userContext.Provider value={{ userLogin, userRegister, lu1, getUser, setLu1 }}>
+        <userContext.Provider value={{ userLogin, userRegister, lu1, getUser, setLu1, changePassword }}>
             {props.children}
         </userContext.Provider>
     )

@@ -30,7 +30,7 @@ function App() {
       // console.log(json);    
       if(json.path === '/stserver'){
         setLoad({status: true})
-        console.log(load.status)
+        // console.log(load.status)
       }
     }
     stServer();
