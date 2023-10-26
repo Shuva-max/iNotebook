@@ -53,11 +53,11 @@ const Register = (props) => {
                     <h3 className="h3-register">Register</h3>
 
                 </div>
-                <form className="register-from" onSubmit={hanldleSubmit} >
-                    <input id='ti02' className="rip input-name" name="name" type="text" placeholder="Name" onChange={handleChange} />
+                <form className="register-from" onSubmit={hanldleSubmit} autoComplete='on' >
+                    <input id='ti02' className="rip input-name" name="name" type="text" placeholder="Name" onChange={handleChange} min={3} />
                     <input id='de02' className="rip input-email" name="email" type="text" placeholder="Email" onChange={handleChange} />
-                    <input className="rip input-pass" name="password" id='pass' type="text" placeholder="Password" onChange={handleChange} />
-                    <input className="rip input-cpass" name="cpassword" id='cpass' type="password" placeholder="confirm password" onChange={handleChange} />
+                    <input className="rip input-pass" name="password" id='pass' type="text" placeholder="Password" onChange={handleChange} autoComplete='off' min={5}/>
+                    <input className="rip input-cpass" name="cpassword" id='cpass' type="password" placeholder="confirm password" onChange={handleChange} autoComplete='off' min={5} />
                     <button type="submit" className="bt-register">Register</button>          
                 </form>
                 <p className="message">Already a member! <span onClick={()=>{props.toggleShow()}} id="click-login" to="./login"> Login</span></p>

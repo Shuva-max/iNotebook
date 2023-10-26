@@ -9,47 +9,90 @@ import { useState } from 'react';
 export default function Navbar(props) {
   const location = useLocation();
   const {setNotes} = useContext(noteContext)
-  const {lu1, setLu1, changePassword} = useContext(userContext)
+  const {lu1, setLu1, changePassword, changeName, getUser} = useContext(userContext)
   const {showAlert} = useContext(alertContext)
   const navigate = useNavigate()
-  const refClose = useRef(null);
-  const refClose2 = useRef(null);
   const ref = useRef(null);
-  const [cred, setCred] = useState({expass01:'', pass02: '', cnpass02: ''})
+  const refClose2 = useRef(null);
+  const [cred, setCred] = useState({expass01:'', pass02: '', cnpass02: ''});
 
   useEffect(()=>{
 
   },[lu1])
 
-  const close =()=>{
-    refClose.current.click();
-    ref.current.click()
-  }
-
-  const handleChangePass = async() => {
-    // console.log("pass")
-    const exPass = document.getElementById('expass01').value;
-    const Pass = document.getElementById('pass02').value;
-    const cnPass = document.getElementById('cnpass02').value;
-    if (Pass !== cnPass){
-      showAlert(': Enter same password!!','warning')
-    } else {
-      // api call
-      const status = await changePassword({pass: exPass, cnPass: cnPass});
-      if(status){
-        showAlert(': Password changed successfully', 'success')
-      }else{
-        showAlert(': Put your right credential!!!', 'danger')
-      }
-    }
-    refClose2.current.click();
-    setCred({expass01:'', pass02: '', cnpass02: ''})
-  }
   const onChange = (e)=>{
     setCred({...cred, [e.target.name]:e.target.value});  //using sprade operator
   }
-  const handleChangeName = () => {
-    console.log("name")
+
+  const [changed, setChanged] = useState({click:'', title:'', desc:'', desc2:'', desc3:'', btnText:''});
+
+  const closePass =()=>{
+    ref.current.click();
+    setChanged({click:'pass', title:'Change Your Existing Password', desc:'Current Password', desc2:'New Password', desc3:'Confirm New Password', btnText:'Change Password'})
+    
+    document.getElementById('change').click();
+  }
+  const closeName =()=>{
+    ref.current.click();
+    setChanged({click:'name', title:'Change Your Username', desc:'Password', desc2:'Name to be changed', desc3:'', btnText:'Change Name'})
+    
+    document.getElementById('change').click();
+  }
+
+  const handleChangePass = async() => {
+    if(document.getElementById('expass01').value.length>=5 && document.getElementById('pass02').value.length>=5 &&document.getElementById('cnpass02').value.length>=5){
+      // console.log("pass")
+      const exPass = document.getElementById('expass01').value;
+      const Pass = document.getElementById('pass02').value;
+      const cnPass = document.getElementById('cnpass02').value;
+      if (Pass !== cnPass){
+        showAlert(': Enter same password!!','warning')
+      } else {
+        // api call
+        const status = await changePassword({pass: exPass, cnPass: cnPass});
+        if(status){
+          showAlert(': Password changed successfully', 'success')
+        }else{
+          showAlert(': Put your right credential!!!', 'danger')
+        }
+      }
+      refClose2.current.click();
+      setCred({expass01:'', pass02: '', cnpass02: ''})
+    }else{
+      showAlert(': Put your right credential!!!', 'danger')
+      refClose2.current.click();
+    }
+  }
+  const handleChangeName = async() => {
+    // console.log("name")
+    if(document.getElementById('expass01').value.length>=5 && document.getElementById('pass02').value.length>=3){
+      // console.log("pass")
+      const pass = document.getElementById('expass01').value;
+      const name = document.getElementById('pass02').value;
+      // api call
+      const status = await changeName({pass: pass, name: name});
+      if(status){
+        getUser();
+        showAlert(': Name changed successfully', 'success')
+      }else{
+        showAlert(': Put your right credential!!!', 'danger')
+      }
+      refClose2.current.click();
+      setCred({expass01:'', pass02: ''})
+    }else{
+      showAlert(': Put your right credential!!!', 'danger')
+      refClose2.current.click();
+    }
+  }
+
+  const handleChange = (e) =>{
+    e.preventDefault();
+    if(changed.click === 'pass'){
+      handleChangePass();
+    }
+    if(changed.click === 'name'){
+      handleChangeName();
+    }
   }
 
   let timerid
@@ -103,7 +146,7 @@ export default function Navbar(props) {
 <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
   <div className="offcanvas-header">
     <h5 className="offcanvas-title" id="offcanvasExampleLabel">{lu1?lu1.name:'userName'}</h5>
-    <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" ref={refClose}></button>
+    <button ref={ref} type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div className="offcanvas-body">
     <div>
@@ -114,40 +157,41 @@ export default function Navbar(props) {
         menu
       </button>
       <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a className="dropdown-item" onClick={close}>change password</a></li>
-        <li><a className="dropdown-item" onClick={close}>change name</a></li>
+        <li><span className="dropdown-item" style={{cursor:'pointer'}} onClick={closePass}>change password</span></li>
+        <li><span className="dropdown-item" style={{cursor:'pointer'}} onClick={closeName}>change name</span></li>
       </ul>
     </div>
   </div>
 </div>
 
-{/* Modal */}
-<button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"></button>
-<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{/* Modal for change password */}
+<button id='change' type="button" className="d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+</button>
+<div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Change Your Existing Password</h5>
+        <h5 className="modal-title" id="staticBackdropLabel">{changed.title}</h5>
         <button ref={refClose2} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">
-        <form>
+      <form>
           <div className="mb-3">
-            <label htmlFor="recipient-name" className="col-form-label">Current password</label>
-            <input onChange={onChange} name='expass01' value={cred.expass01} type="password" className="form-control" id="expass01"/>
+            <label htmlFor="recipient-name" className="col-form-label">{changed.desc}</label>
+            <input onChange={onChange} name='expass01' value={cred.expass01} type="password" className="form-control" id="expass01" min={5}/>
           </div>
           <div className="mb-3">
-            <label htmlFor="message-text" className="col-form-label">New password</label>
-            <input onChange={onChange} name='pass02' value={cred.pass02} type="text" className="form-control" id="pass02"/>
+            <label htmlFor="message-text" className="col-form-label">{changed.desc2}</label>
+            <input onChange={onChange} name='pass02' value={cred.pass02} type="text" className="form-control" id="pass02" min={5}/>
           </div>
-          <div className="mb-3">
-            <label htmlFor="message-text" className="col-form-label">Confirm new password</label>
-            <input onChange={onChange} name='cnpass02' value={cred.cnpass02} type="password" className="form-control" id="cnpass02"/>
-          </div>
-        </form>
-      </div>
+          {changed.click === 'pass' && <div className="mb-3">
+            <label htmlFor="message-text" className="col-form-label">{changed.desc3}</label>
+            <input onChange={onChange} name='cnpass02' value={cred.cnpass02} type="password" className="form-control" id="cnpass02" min={5}/>
+          </div> }
       <div className="modal-footer">
-        <button type="button" className="btn btn-primary" onClick={handleChangePass}>Change Password</button>
+        <button type="submit" className="btn btn-primary" onClick={handleChange}>{changed.btnText}</button>
+      </div>
+        </form>
       </div>
     </div>
   </div>

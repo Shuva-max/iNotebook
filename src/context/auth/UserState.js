@@ -77,8 +77,22 @@ const UserState = (props) => {
       return json.status || false;
     }
 
+    // change name api
+    const changeName = async ({pass, name})=> {
+      const response = await fetch(`${host}/api/auth/changename`, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token" : localStorage.getItem('token')
+        },
+        body: JSON.stringify({password: pass, newname: name})
+      });
+      const json = await response.json();      
+      return json.status || false;
+    }
+
     return (
-        <userContext.Provider value={{ userLogin, userRegister, lu1, getUser, setLu1, changePassword }}>
+        <userContext.Provider value={{ userLogin, userRegister, lu1, getUser, setLu1, changePassword, changeName }}>
             {props.children}
         </userContext.Provider>
     )
