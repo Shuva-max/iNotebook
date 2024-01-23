@@ -16,7 +16,7 @@ function App() {
   const [token, setToken] = useState({status:false, token:''})
   const [load, setLoad] = useState({status: false})
   const navigate = useNavigate();
-  // const [render, setRender] = useState(false)
+  // const [render, setRender] = useState(false)   Hii i am writting on the branch dev
 
   useEffect(()=>{
     const stServer = async()=>{
